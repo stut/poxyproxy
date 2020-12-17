@@ -26,7 +26,7 @@ The message placed on the queue is a JSON object like this:
     "endpoint": "nodeinfo",
     "region": "eu-west-2",
     "bucket": "stut-nodeinfo",
-    "key": "ts-oxe-stu/gateway/system.json"
+    "key": "desktop/system.json"
 }
 ```
 
