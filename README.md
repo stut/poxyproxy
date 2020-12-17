@@ -10,7 +10,9 @@ See `config-example.json` for what should be a self-explanatory example.
 
 ## API
 
+```
 POST /{endpoint-name}/{key}
+```
 
 If the endpoint exists, uploads the body to S3 with the configured prefix and the key from the URL.
 
