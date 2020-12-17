@@ -1,0 +1,10 @@
+{
+    "nodeinfo": {
+        "region": "eu-west-2",
+        "s3_bucket": "stut-nodeinfo",
+        "s3_prefix": "",
+        "sqs_queue": "stut-nodeinfo-queue.fifo",
+        "sqs_group": "ts-oxe-stu",
+        "sqs_delay_seconds": 10
+    }
+}
