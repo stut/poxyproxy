@@ -26,7 +26,7 @@
     "alerts": {
         "comment": "This is an example of posting a message to a Slack channel.",
         "type": "slack",
-        "url": "https://hooks.slack.com/services/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",
+        "url": "https://hooks.slack.com/services/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",
         "allow_overrides": true,
         "defaults": {
             "username": "Poxy Proxy",

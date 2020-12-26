@@ -10,6 +10,15 @@ For S3 this means limiting the spread of credentials, and restricting the bucket
 
 For Slack this means a specific incoming webhook along with the option to prevent the customisation of the message username, avatar, and destination.
 
+## Command line options
+
+* `--config-filename` the filename where endpoint configurations are specified. Defaults to `config-example.json`.
+* `--listen-address` the address to which to bind. Defaults to `0.0.0.0`.
+* `--listen-port` the port on which to listen. Defaults to a system-assigned random port.
+* `--debug` enables debug logging.
+
+If no port is specified it will look for an environment variable called `NOMAD_PORT_http` and will use that if it exists. This enables auto-configuration under Nomad.
+
 ## Config
 
 See `config-example.json` for what should be comprehensive and self-explanatory examples.

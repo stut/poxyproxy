@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"flag"
 	"fmt"
 	"log"
@@ -14,6 +13,7 @@ import (
 )
 
 var debugMode bool
+var config *Endpoints
 
 func main() {
 	configFilenamePtr := flag.String("config-filename", "config-example.json", "the configuration filename")
@@ -43,7 +43,8 @@ func main() {
 		}
 	}
 
-	config, err := LoadEndpointsConfig(configFilename)
+	var err error
+	config, err = LoadEndpointsConfig(configFilename)
 	if err != nil {
 		panic(err)
 	}
@@ -51,30 +52,7 @@ func main() {
 	r := gin.Default()
 	r.Use(gin.Recovery())
 
-	r.POST("/:endpoint/*key", func(c *gin.Context) {
-		endpoint := c.Param("endpoint")
-		key := c.Param("key")
-		reader := bufio.NewReader(c.Request.Body)
-
-		err := config.processRequest(endpoint, key, c.Request.Header.Get("Content-Type"), reader)
-		if err == nil {
-			c.Status(http.StatusNoContent)
-			return
-		}
-
-		errStr := err.Error()
-		if len(errStr) == 3 {
-			// Assume it's a status code.
-			statusCode, err := strconv.Atoi(errStr)
-			if err == nil {
-				c.Status(statusCode)
-				return
-			}
-			errStr = fmt.Sprintf("%s", err)
-		}
-
-		c.Data(500, gin.MIMEPlain, []byte(errStr))
-	})
+	r.POST("/:endpoint/*key", handleRequest)
 
 	listener, err := net.Listen("tcp", fmt.Sprintf("%s:%d", listenAddress, listenPort))
 	if err != nil {
