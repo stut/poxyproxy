@@ -38,10 +38,10 @@ func getQueueURL(sess *session.Session, queueName *string) (*sqs.GetQueueUrlOutp
 	return result, nil
 }
 
-func sendMessage(sess *session.Session, queueName string, groupId string, delaySeconds int64, notification *Notification) error {
+func sendMessage(sess *session.Session, config SQS, notification *Notification) error {
 	svc := sqs.New(sess)
 
-	queueUrl, err := getQueueURL(sess, &queueName)
+	queueUrl, err := getQueueURL(sess, &config.Queue)
 	if err != nil {
 		return err
 	}
@@ -52,8 +52,8 @@ func sendMessage(sess *session.Session, queueName string, groupId string, delayS
 		return err
 	}
 	_, err = svc.SendMessage(&sqs.SendMessageInput{
-		DelaySeconds:   aws.Int64(delaySeconds),
-		MessageGroupId: aws.String(groupId),
+		DelaySeconds:   aws.Int64(config.DelaySeconds),
+		MessageGroupId: aws.String(config.Group),
 		MessageBody:    aws.String(string(msg)),
 		QueueUrl:       queueUrl.QueueUrl,
 	})

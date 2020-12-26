@@ -1,0 +1,22 @@
+{
+    "nodeinfo-s3": {
+        "comment": "This is an example of targeting an S3 bucket and notifying an SQS queue.",
+        "type": "s3",
+        "bucket": "nodeinfo",
+        "sqs": {
+            "queue": "nodeinfo-queue.fifo",
+            "group": "ts-oxe-stu"
+        }
+    },
+    "nodeinfo-local": {
+        "comment": "This is an example of targeting an S3-compatible server. This functionality has not been extensively tested yet.",
+        "type": "s3",
+        "endpoint": "127.0.0.1:9000",
+        "bucket": "nodeinfo"
+    },
+    "alerts": {
+        "comment": "This is an example of posting a message to a Slack channel.",
+        "type": "slack",
+        "url": "https://hooks.slack.com/services/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"
+    }
+}

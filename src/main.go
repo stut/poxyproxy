@@ -43,7 +43,7 @@ func main() {
 		}
 	}
 
-	config, err := LoadConfig(configFilename)
+	config, err := LoadEndpointsConfig(configFilename)
 	if err != nil {
 		panic(err)
 	}
@@ -56,13 +56,13 @@ func main() {
 		key := c.Param("key")
 		reader := bufio.NewReader(c.Request.Body)
 
-		err := config.processRequest(endpoint, key, reader)
+		err := config.processRequest(endpoint, key, c.Request.Header.Get("Content-Type"), reader)
 		if err == nil {
 			c.Status(http.StatusNoContent)
 			return
 		}
 
-		errStr := fmt.Sprintf("%s", err)
+		errStr := err.Error()
 		if len(errStr) == 3 {
 			// Assume it's a status code.
 			statusCode, err := strconv.Atoi(errStr)

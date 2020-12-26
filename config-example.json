@@ -1,10 +1,39 @@
 {
-    "nodeinfo": {
-        "region": "eu-west-2",
-        "s3_bucket": "stut-nodeinfo",
-        "s3_prefix": "",
-        "sqs_queue": "stut-nodeinfo-queue.fifo",
-        "sqs_group": "ts-oxe-stu",
-        "sqs_delay_seconds": 10
+    "nodeinfo-s3": {
+        "comment": "This is an example of targeting an S3 bucket and notifying an SQS queue.",
+        "type": "s3",
+        "region": "us-east-1",
+        "bucket": "nodeinfo",
+        "prefix": "gateway/",
+        "sqs": {
+            "region": "us-east-1",
+            "queue": "nodeinfo-queue.fifo",
+            "group": "ts-oxe-stu"
+        }
+    },
+    "nodeinfo-local": {
+        "comment": "This is an example of targeting an S3-compatible server. This functionality has not been extensively tested yet.",
+        "type": "s3",
+        "endpoint": "127.0.0.1:9000",
+        "bucket": "nodeinfo",
+        "prefix": "gateway/",
+        "sqs": {
+            "region": "us-east-1",
+            "queue": "nodeinfo-queue.fifo",
+            "group": "ts-oxe-stu"
+        }
+    },
+    "alerts": {
+        "comment": "This is an example of posting a message to a Slack channel.",
+        "type": "slack",
+        "url": "https://hooks.slack.com/services/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",
+        "allow_overrides": true,
+        "defaults": {
+            "username": "Poxy Proxy",
+            "channel": "#random",
+            "text": "This it the default message. A request with no body will send this.",
+            "icon_url": "https://slack.com/img/icons/app-57.png",
+            "icon_emoji": ":ghost:"
+        }
     }
 }
